@@ -5,6 +5,7 @@ import BusinessOwner from '@/lib/BusinessOwner';
 type PlanStatus = 'pending' | 'approved' | 'declined';
 
 class InvestmentPlan {
+    id: string;
     investor: InvestorAccount;
     business: BusinessOwner;
     amount: number;
@@ -18,6 +19,7 @@ class InvestmentPlan {
         receipt?: string;
         status?: PlanStatus;
     }) {
+        this.id = crypto.randomUUID();
         this.investor = init.investor;
         this.business = init.business;
         this.amount = init.amount;
@@ -31,5 +33,6 @@ class InvestmentPlan {
         // Add real transaction or business logic here
     }
 }
+
 
 export default InvestmentPlan;

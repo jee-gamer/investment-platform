@@ -1,10 +1,10 @@
 // lib/investorAccount.ts
 import Account from '@/lib/Account';
 
-class InvestorAccount extends Account {
+class Investor extends Account {
     profile?: string;
 
-    constructor(init?: Partial<InvestorAccount>) {
+    constructor(init?: Partial<Investor>) {
         super(init);
         this.profile = init?.profile;
     }
@@ -24,4 +24,4 @@ class InvestorAccount extends Account {
     }
 }
 
-export default InvestorAccount;
+export default Investor;

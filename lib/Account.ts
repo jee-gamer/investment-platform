@@ -1,11 +1,15 @@
 // account.ts
+import { randomUUID } from 'crypto';
+
 abstract class Account {
+    id: string;
     firstName?: string;
     lastName?: string;
     email?: string;
     phone?: string;
 
-    constructor(init?: Partial<Account>) {
+    constructor(init?: Partial<Omit<Account, 'id'>>) {
+        this.id = randomUUID(); // Auto-generate ID
         Object.assign(this, init);
     }
 
