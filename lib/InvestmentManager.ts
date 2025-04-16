@@ -21,7 +21,7 @@ class InvestmentManager {
 
     public async makePlan(plan: TInvestmentPlan): Promise<InvestmentPlan> {
         const newPlan = new InvestmentPlan(plan);
-        const doc = await InvestmentPlanRepo.create(plan)
+        const doc = await InvestmentPlanRepo.create(newPlan) // unused doc
         return newPlan;
     }
 
