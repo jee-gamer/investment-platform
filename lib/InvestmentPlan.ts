@@ -1,20 +1,20 @@
 // lib/investmentPlan.ts
-import InvestorAccount from '@/lib/Investor';
-import BusinessOwner from '@/lib/BusinessOwner';
+import Investor from '@/lib/Investor';
+import Business from '@/lib/Business';
 
 type PlanStatus = 'pending' | 'approved' | 'declined';
 
 class InvestmentPlan {
     id: string;
-    investor: InvestorAccount;
-    business: BusinessOwner;
+    investor: Investor;
+    business: Business;
     amount: number;
     receipt?: string;
     status: PlanStatus;
 
     constructor(init: {
-        investor: InvestorAccount;
-        business: BusinessOwner;
+        investor: Investor;
+        business: Business;
         amount: number;
         receipt?: string;
         status?: PlanStatus;
@@ -28,7 +28,7 @@ class InvestmentPlan {
     }
 
     makeInvestment(): void {
-        console.log(`Investor ${this.investor.getFullName()} invested $${this.amount} in ${this.business.business}`);
+        console.log(`Investor ${this.investor.getFullName()} invested $${this.amount} in ${this.business}`);
         this.status = 'approved';
         // Add real transaction or business logic here
     }
