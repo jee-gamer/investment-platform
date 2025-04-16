@@ -17,9 +17,11 @@ class Business {
     }
 
     // Getter method to retrieve full business info
-    getBusinessInfo(): string {
-        return `Business: ${this.businessName}, Public Data: ${this.publicData}, Private Data: ${this.privateData}`;
+    toString(): string {
+        return `Business: ${this.businessName}, Public Data: ${this.publicData}`;
     }
+
+
 }
 
 export default Business;

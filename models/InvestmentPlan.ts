@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-type PlanStatus = 'pending' | 'approved' | 'declined';
+type PlanStatus = 'pending' | 'approved' | 'declined' | 'requestToBeRemoved';
 
 export interface IInvestmentPlan extends Document {
     id: string;

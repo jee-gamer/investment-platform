@@ -1,5 +1,7 @@
 import InvestmentPlan, { PlanStatus, TInvestmentPlan } from '@/lib/InvestmentPlan';
 import InvestmentPlanRepo from "@/lib/InvestmentPlanRepo";
+import InvestmentPlanModel, {IInvestmentPlan} from "@/models/InvestmentPlan";
+import InvestmentModel from "@/models/Investment";
 import Investor from '@/lib/Investor';
 import Business from '@/lib/Business';
 import DatabaseManager from '@/lib/DatabaseManager'; // Import the DatabaseManager
@@ -26,16 +28,21 @@ class InvestmentManager {
     }
 
     public async requestRemovePlan(plan: InvestmentPlan): Promise<string> {
-        const connection = await DB.getConnection(); // Use the DB connection if needed
-        console.log('Database connected:', connection);
-        return `Plan for investment in ${plan.business} has been removed.`;
+        const exist = await (InvestmentPlanModel.findOne({ id: plan.id }));
+        if (!exist) {
+            return `The plan does not exist in database`;
+        }
+        exist.status = "requestToBeRemoved"
+        await exist.save()
+        return `Successfully requested to remove plan`;
     }
 
     public async acceptPlan(plan: InvestmentPlan): Promise<string> {
-        plan.makeInvestment();
-        const connection = await DB.getConnection(); // Use the DB connection if needed
-        console.log('Database connected:', connection);
-        return `Plan for investment in ${plan.business} has been accepted and processed.`;
+        await DB.getConnection()
+        const investment = plan.makeInvestment();
+        const doc = InvestmentModel.create(investment);
+
+        return `Plan for investment in ${plan.business} has been accepted.`;
     }
 
     public async declinePlan(plan: InvestmentPlan): Promise<string> {

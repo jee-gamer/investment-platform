@@ -1,8 +1,7 @@
 // lib/repos/InvestmentPlanRepo.ts
 import InvestmentPlanModel, { IInvestmentPlan } from '@/models/InvestmentPlan';
 import DatabaseManager from '@/lib/DatabaseManager';
-import InvestmentPlan, {PlanStatus, TInvestmentPlan} from "@/lib/InvestmentPlan";
-import { Types } from 'mongoose';
+import InvestmentPlan from "@/lib/InvestmentPlan";
 
 const DB = DatabaseManager.getInstance();
 
