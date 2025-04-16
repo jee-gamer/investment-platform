@@ -1,4 +1,5 @@
-import InvestmentPlan from '@/lib/InvestmentPlan';
+import InvestmentPlan, { PlanStatus, TInvestmentPlan } from '@/lib/InvestmentPlan';
+import InvestmentPlanRepo from "@/lib/InvestmentPlanRepo";
 import Investor from '@/lib/Investor';
 import Business from '@/lib/Business';
 import DatabaseManager from '@/lib/DatabaseManager'; // Import the DatabaseManager
@@ -18,16 +19,9 @@ class InvestmentManager {
         return InvestmentManager.instance;
     }
 
-    public async makePlan(investor: Investor, business: Business, amount: number): Promise<InvestmentPlan> {
-        const newPlan = new InvestmentPlan({
-            investor,
-            business,
-            amount,
-        });
-
-        const connection = await DB.getConnection(); // Use the DB connection here if needed
-        console.log('Database connected:', connection);
-
+    public async makePlan(plan: TInvestmentPlan): Promise<InvestmentPlan> {
+        const newPlan = new InvestmentPlan(plan);
+        const doc = await InvestmentPlanRepo.create(plan)
         return newPlan;
     }
 

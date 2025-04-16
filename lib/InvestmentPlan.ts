@@ -2,7 +2,15 @@
 import Investor from '@/lib/Investor';
 import Business from '@/lib/Business';
 
-type PlanStatus = 'pending' | 'approved' | 'declined';
+export type PlanStatus = 'pending' | 'approved' | 'declined';
+
+export type TInvestmentPlan = {
+    investor: Investor;
+    business: Business;
+    amount: number;
+    receipt?: string;
+    status?: PlanStatus;
+};
 
 class InvestmentPlan {
     id: string;
@@ -12,13 +20,7 @@ class InvestmentPlan {
     receipt?: string;
     status: PlanStatus;
 
-    constructor(init: {
-        investor: Investor;
-        business: Business;
-        amount: number;
-        receipt?: string;
-        status?: PlanStatus;
-    }) {
+    constructor(init: TInvestmentPlan) {
         this.id = crypto.randomUUID();
         this.investor = init.investor;
         this.business = init.business;

@@ -1,11 +1,11 @@
-// models/InvestmentPlan.ts
 import mongoose, { Schema, Document } from 'mongoose';
 
 type PlanStatus = 'pending' | 'approved' | 'declined';
 
 export interface IInvestmentPlan extends Document {
-    investor: mongoose.Types.ObjectId; // Correct type for ObjectId reference
-    business: mongoose.Types.ObjectId; // Correct type for ObjectId reference
+    id: string;
+    investor: mongoose.Types.ObjectId;
+    business: mongoose.Types.ObjectId;
     amount: number;
     receipt?: string;
     status: PlanStatus;
@@ -13,14 +13,19 @@ export interface IInvestmentPlan extends Document {
 
 const InvestmentPlanSchema: Schema = new Schema(
     {
+        id: {
+            type: String,
+            required: true,
+            unique: true,
+        },
         investor: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Investor', // Referencing the Investor model
+            ref: 'Investor',
             required: true,
         },
         business: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'BusinessOwner', // Referencing the BusinessOwner model
+            ref: 'BusinessOwner',
             required: true,
         },
         amount: {
@@ -39,7 +44,7 @@ const InvestmentPlanSchema: Schema = new Schema(
         },
     },
     {
-        timestamps: true, // Adds createdAt and updatedAt timestamps
+        timestamps: true,
     }
 );
 

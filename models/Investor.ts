@@ -1,7 +1,7 @@
-// models/Investor.ts
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IInvestor extends Document {
+    id: string;
     firstName?: string;
     lastName?: string;
     email?: string;
@@ -10,6 +10,11 @@ export interface IInvestor extends Document {
 }
 
 const InvestorSchema: Schema = new Schema({
+    id: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     firstName: { type: String },
     lastName: { type: String },
     email: { type: String, required: true, unique: true },
