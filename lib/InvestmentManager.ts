@@ -46,9 +46,9 @@ class InvestmentManager {
     }
 
     public async declinePlan(plan: InvestmentPlan): Promise<string> {
+        await DB.getConnection()
         plan.status = 'declined';
-        const connection = await DB.getConnection(); // Use the DB connection if needed
-        console.log('Database connected:', connection);
+
         return `Plan for investment in ${plan.business} has been declined.`;
     }
 }
