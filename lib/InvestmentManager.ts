@@ -23,6 +23,7 @@ class InvestmentManager {
 
     public async makePlan(plan: TInvestmentPlan): Promise<InvestmentPlan> {
         const newPlan = new InvestmentPlan(plan);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const doc = await InvestmentPlanRepo.create(newPlan) // unused doc
         return newPlan;
     }
@@ -40,6 +41,7 @@ class InvestmentManager {
     public async acceptPlan(plan: InvestmentPlan): Promise<string> {
         await DB.getConnection()
         const investment = plan.makeInvestment();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const doc = InvestmentModel.create(investment);
 
         return `Plan for investment in ${plan.business} has been accepted.`;

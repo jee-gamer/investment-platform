@@ -2,6 +2,10 @@
 import Investor from '@/lib/Investor';
 import Business from '@/lib/Business';
 import Investment from '@/lib/Investment';
+import DatabaseManager from "@/lib/DatabaseManager";
+import InvestmentPlanModel, { IInvestmentPlan } from "@/models/InvestmentPlan";
+
+const DB = DatabaseManager.getInstance();
 
 export type PlanStatus = 'pending' | 'approved' | 'declined';
 
@@ -35,7 +39,27 @@ class InvestmentPlan {
         this.status = 'approved';
         return new Investment(this.investor, this.business, this.amount);
     }
-}
 
+    async save(): Promise<IInvestmentPlan> {
+        await DB.getConnection();
+        const investorDoc = await this.investor.save();
+        const businessDoc = await this.business.save();
+
+        const planDoc = await InvestmentPlanModel.findOneAndUpdate(
+            { id: this.id },
+            {
+                id: this.id,
+                investor: investorDoc._id,
+                business: businessDoc._id,
+                amount: this.amount,
+                receipt: this.receipt,
+                status: this.status,
+            },
+            { upsert: true, returnDocument: "after" }
+        ).lean();
+
+        return planDoc;
+    }
+}
 
 export default InvestmentPlan;

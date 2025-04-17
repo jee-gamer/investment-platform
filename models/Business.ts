@@ -1,7 +1,7 @@
 // lib/models/Business.ts
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface IBusiness extends Document {
+export interface IBusiness extends Document {
     id: string; // <- custom id field
     businessName: string;
     publicData?: string;
